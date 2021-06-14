@@ -1,35 +1,27 @@
-iimport osimport pathlib
-
-import pyunpack
-import reportlab
-import PyPDF4
+import argparse
+import pathlib
+import sys
 
 # Variables
-file_types = [".cba", ".cbr", ".cbz"]
-temp_file = "unpacked"
+FILE_TYPES = [".cba", ".cbr", ".cbz", ".zip"]
+TEMP_FOLDER = "Temp"
+
+# argparse code
+parser = argparse.ArgumentParser(
+    prog="cbPDF",
+    description="Convert a folder or compressed archive containing images into a PDF",
+)
+
+parser.add_argument("Path", metavar="path", type=str, help="path to images")
+
+args = parser.parse_args()
 
 
-# Gets folders from folders.txt and converts them into Path objects
-with open("folders.txt") as file:
-    lines = file.readlines()
-    input_dir = pathlib.Path(lines[0].strip())
-    output_dir = pathlib.Path(lines[1].strip())
+# pathlib code
+
+if not pathlib.Path(args.Path).exists():
+    print("The path you entered does not exist.")
+    sys.exit()
 
 
-# Gets all archives and adds their path to a list
-print(f"Getting archives from {os.fspath(input_dir)}")
-archives = []
-for file in input_dir.glob("*"):
-    if file.is_file() and file.suffix in file_types:
-        archives.append(file)
-print(f"Found {len(archives)} archives\n")
-
-
-os.mkdir(temp_file)
-
-finished = 1
-for file in archives:
-    print(f"{finished}/{len(archives)} Extracting {file.name}")
-    pyunpack.Archive(file).extractall(temp_file)
-    finished += 1
-
+files = [file for file in pathlib.Path(args.Path).rglob("*")]
