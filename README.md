@@ -4,4 +4,5 @@ cbPDF is a command line tool to convert a folder or compressed archive containin
 
 ## Requirements
 
-* Standard Library: `os`, `pathlib`, `sys`
+* Python 3.7+
+* Standard Library: `logging`, `os`, `pathlib`, `sys`

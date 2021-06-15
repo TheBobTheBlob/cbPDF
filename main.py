@@ -1,27 +1,28 @@
-import argparse
+import logging
 import pathlib
 import sys
 
+from helpers import parser
+
 # Variables
 FILE_TYPES = [".cba", ".cbr", ".cbz", ".zip"]
-TEMP_FOLDER = "Temp"
 
-# argparse code
-parser = argparse.ArgumentParser(
-    prog="cbPDF",
-    description="Convert a folder or compressed archive containing images into a PDF",
-)
+args = parser.main()
 
-parser.add_argument("Path", metavar="path", type=str, help="path to images")
-
-args = parser.parse_args()
+if args.info:
+    logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.DEBUG)
+else:
+    logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.INFO)
 
 
-# pathlib code
-
-if not pathlib.Path(args.Path).exists():
-    print("The path you entered does not exist.")
+if not pathlib.Path(args.path).exists():
+    logging.error(f"{args.path} does not exist")
     sys.exit()
 
+if not pathlib.Path(args.output).exists():
+    logging.warning(f"{args.output} does not exist, creating folder")
+    pathlib.Path(args.output).mkdir(parents=True)
 
-files = [file for file in pathlib.Path(args.Path).rglob("*")]
+if not pathlib.Path(args.temp).exists():
+    logging.warning(f"{args.temp} does not exist, creating folder")
+    pathlib.Path(args.temp).mkdir(parents=True)
