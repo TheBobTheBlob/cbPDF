@@ -1,0 +1,33 @@
+[project]
+name = "cbPDF"
+version = "0.1.0-alpha"
+description = "cbPDF is a command line tool to convert a folder or compressed archive containing images into a PDF."
+readme = "README.md"
+license = {file = "LICENCE"}
+
+[[project.authors]]
+name = "Punit Turlapati"
+
+[project.urls]
+homepage = "https://github.com/TheBobTheBlob/cbPDF"
+repository = "https://github.com/TheBobTheBlob/cbPDF"
+
+requires-python = ">=3.7"
+dependencies = [
+    "fpdf2",
+    "Pillow"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8",
+    "isort",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py37"]
+
+[tool.isort]
+profile = "black"

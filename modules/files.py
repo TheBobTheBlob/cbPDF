@@ -1,4 +1,6 @@
+import json
 import logging
+import pathlib
 import shutil
 import sys
 
@@ -11,3 +13,12 @@ def sh_unpack(file, output, format):
     logging.debug(f"Starting extract of [{str(file)}] into [{str(output)}]")
     shutil.unpack_archive(file, output / file.stem, format)
     logging.debug(f"Finished extract of [{str(file)}] into [{str(output)}]")
+
+
+def image_locations(folder):
+    for path in pathlib.rglob(folder):
+        print(path)
+
+
+# def config(source="config.json"):
+#     with open(source) as file:
