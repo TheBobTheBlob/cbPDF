@@ -14,8 +14,8 @@ repository = "https://github.com/TheBobTheBlob/cbPDF"
 
 requires-python = ">=3.7"
 dependencies = [
-    "fpdf2",
-    "Pillow"
+    "fpdf2>=2.5.4",
+    "Pillow>=9.1.1"
 ]
 
 [project.optional-dependencies]
